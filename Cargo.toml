@@ -1,0 +1,9 @@
+[package]
+name = "plasma-firefox-themer"
+version = "1.0.0"
+edition = "2024"
+
+[dependencies]
+clap = { version = "4.6.7", features = ["derive"] }
+dirs = "7.0.0"
+rust-ini = "0.21.3"

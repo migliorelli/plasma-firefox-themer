@@ -1,0 +1,201 @@
+/* ==========================================================================
+   userChrome.css (template) — Plasma scheme: {{scheme}}
+   Require: about:config -> toolkit.legacyUserProfileCustomizations.stylesheets = true
+   Require Firefox >= 113 (color-mix).
+   This CSS template was AI generated.
+   ========================================================================== */
+
+/* ---------- PALETA (única parte que muda) ---------- */
+:root {
+  --kde-window-bg:        {{window_bg}};
+  --kde-window-bg-alt:    {{window_bg_alt}};
+  --kde-window-fg:        {{window_fg}};
+  --kde-window-fg-dim:    {{window_fg_inactive}};
+
+  --kde-view-bg:          {{view_bg}};
+  --kde-view-fg:          {{view_fg}};
+  --kde-view-fg-dim:      {{view_fg_inactive}};
+
+  --kde-button-bg:        {{button_bg}};
+  --kde-button-fg:        {{button_fg}};
+
+  --kde-header-bg:        {{header_bg}};
+  --kde-header-fg:        {{header_fg}};
+  --kde-header-fg-dim:    {{header_fg_inactive}};
+
+  --kde-tooltip-bg:       {{tooltip_bg}};
+  --kde-tooltip-fg:       {{tooltip_fg}};
+
+  --kde-link:             {{link}};
+  --kde-visited:          {{visited}};
+
+  /* ---------- DERIVADAS (tom/transparência feitos aqui, no CSS) ---------- */
+  --kde-accent:           var(--kde-button-bg);
+  --kde-on-accent:        var(--kde-button-fg);
+  --kde-hover:            color-mix(in srgb, var(--kde-window-fg) 10%, transparent);
+  --kde-active:           color-mix(in srgb, var(--kde-window-fg) 18%, transparent);
+  --kde-border:           color-mix(in srgb, var(--kde-window-bg-alt) 55%, transparent);
+  --kde-accent-soft:      color-mix(in srgb, var(--kde-accent) 30%, transparent);
+}
+
+/* ---------- Variáveis internas do Firefox ---------- */
+:root {
+  color-scheme: {{color_scheme}} !important;
+
+  /* Barra de abas / titlebar */
+  --toolbox-bgcolor: var(--kde-header-bg) !important;
+  --toolbox-bgcolor-inactive: var(--kde-header-bg) !important;
+  --toolbox-textcolor: var(--kde-header-fg) !important;
+  --toolbox-textcolor-inactive: var(--kde-header-fg-dim) !important;
+  --toolbox-non-lwt-bgcolor: var(--kde-header-bg) !important;
+  --toolbox-non-lwt-bgcolor-inactive: var(--kde-header-bg) !important;
+  --toolbox-non-lwt-textcolor: var(--kde-header-fg) !important;
+  --toolbox-non-lwt-textcolor-inactive: var(--kde-header-fg-dim) !important;
+  --lwt-accent-color: var(--kde-header-bg) !important;
+  --lwt-text-color: var(--kde-header-fg) !important;
+
+  /* Toolbars */
+  --toolbar-bgcolor: var(--kde-window-bg) !important;
+  --toolbar-color: var(--kde-window-fg) !important;
+  --toolbar-non-lwt-bgcolor: var(--kde-window-bg) !important;
+  --toolbar-non-lwt-textcolor: var(--kde-window-fg) !important;
+  --toolbarbutton-icon-fill: var(--kde-window-fg) !important;
+  --toolbarbutton-icon-fill-attention: var(--kde-accent) !important;
+  --toolbarbutton-hover-background: var(--kde-hover) !important;
+  --toolbarbutton-active-background: var(--kde-active) !important;
+  --toolbarseparator-color: var(--kde-border) !important;
+  --chrome-content-separator-color: var(--kde-border) !important;
+
+  /* Abas */
+  --tab-selected-bgcolor: var(--kde-button-bg) !important;
+  --tab-selected-textcolor: var(--kde-button-fg) !important;
+  --tab-loading-fill: var(--kde-accent) !important;
+  --tab-block-margin: 4px;
+
+  /* Barra de endereço / busca */
+  --toolbar-field-background-color: var(--kde-view-bg) !important;
+  --toolbar-field-color: var(--kde-view-fg) !important;
+  --toolbar-field-border-color: var(--kde-border) !important;
+  --toolbar-field-focus-background-color: var(--kde-view-bg) !important;
+  --toolbar-field-focus-color: var(--kde-view-fg) !important;
+  --toolbar-field-focus-border-color: var(--kde-accent) !important;
+  --toolbar-field-highlight-background-color: var(--kde-accent) !important;
+  --toolbar-field-highlight-color: var(--kde-on-accent) !important;
+  --focus-outline-color: var(--kde-accent) !important;
+  --urlbarView-highlight-background: var(--kde-accent) !important;
+  --urlbarView-highlight-color: var(--kde-on-accent) !important;
+  --urlbarView-hover-background: var(--kde-hover) !important;
+  --urlbarView-separator-color: var(--kde-border) !important;
+  --autocomplete-popup-background: var(--kde-view-bg) !important;
+  --autocomplete-popup-color: var(--kde-view-fg) !important;
+  --autocomplete-popup-highlight-background: var(--kde-accent) !important;
+  --autocomplete-popup-highlight-color: var(--kde-on-accent) !important;
+
+  /* Painéis, menus e popups */
+  --arrowpanel-background: var(--kde-window-bg) !important;
+  --arrowpanel-color: var(--kde-window-fg) !important;
+  --arrowpanel-border-color: var(--kde-border) !important;
+  --arrowpanel-dimmed: var(--kde-hover) !important;
+  --arrowpanel-dimmed-further: var(--kde-active) !important;
+  --panel-background: var(--kde-window-bg) !important;
+  --panel-color: var(--kde-window-fg) !important;
+  --panel-border-color: var(--kde-border) !important;
+  --panel-separator-color: var(--kde-border) !important;
+  --panel-item-hover-bgcolor: var(--kde-hover) !important;
+  --panel-item-active-bgcolor: var(--kde-active) !important;
+
+  /* Sidebar e fundo da página enquanto carrega */
+  --sidebar-background-color: var(--kde-window-bg) !important;
+  --sidebar-text-color: var(--kde-window-fg) !important;
+  --sidebar-border-color: var(--kde-border) !important;
+  --tabpanel-background-color: var(--kde-view-bg) !important;
+
+  /* Botões e links */
+  --button-bgcolor: var(--kde-button-bg) !important;
+  --button-color: var(--kde-button-fg) !important;
+  --button-hover-bgcolor: color-mix(in srgb, var(--kde-button-bg), var(--kde-button-fg) 10%) !important;
+  --button-active-bgcolor: color-mix(in srgb, var(--kde-button-bg), var(--kde-button-fg) 18%) !important;
+  --link-color: var(--kde-link) !important;
+  --link-color-hover: color-mix(in srgb, var(--kde-link), white 20%) !important;
+  --link-color-visited: var(--kde-visited) !important;
+}
+
+/* ---------- Seletores diretos (garantem as superfícies principais) ---------- */
+#titlebar, #TabsToolbar {
+  background-color: var(--kde-header-bg) !important;
+  color: var(--kde-header-fg) !important;
+}
+:root:-moz-window-inactive #TabsToolbar { color: var(--kde-header-fg-dim) !important; }
+
+#nav-bar, #PersonalToolbar, #toolbar-menubar {
+  background-color: var(--kde-window-bg) !important;
+  color: var(--kde-window-fg) !important;
+}
+
+/* Abas */
+.tab-background[selected] {
+  background-color: var(--kde-button-bg) !important;
+  box-shadow: none !important;
+}
+.tabbrowser-tab:not([selected]):hover > .tab-stack > .tab-background {
+  background-color: var(--kde-hover) !important;
+}
+.tabbrowser-tab[selected] .tab-label { color: var(--kde-button-fg) !important; }
+.tabbrowser-tab:not([selected]) .tab-label { color: var(--kde-header-fg-dim) !important; }
+.tab-line, .tab-context-line { background-color: var(--kde-accent) !important; }
+
+/* Barra de endereço */
+#urlbar-background, #searchbar {
+  background-color: var(--kde-view-bg) !important;
+  border: 1px solid var(--kde-border) !important;
+  box-shadow: none !important;
+}
+#urlbar[focused] > #urlbar-background,
+#searchbar:focus-within {
+  border-color: var(--kde-accent) !important;
+  outline: 1px solid var(--kde-accent) !important;
+  outline-offset: -2px;
+}
+#urlbar-input, #urlbar .urlbar-input, .searchbar-textbox { color: var(--kde-view-fg) !important; }
+#urlbar-input::placeholder { color: var(--kde-view-fg-dim) !important; }
+#urlbar ::selection, .searchbar-textbox ::selection {
+  background-color: var(--kde-accent) !important;
+  color: var(--kde-on-accent) !important;
+}
+.urlbarView-row[selected], .urlbarView-row[selected] .urlbarView-title,
+.urlbarView-row[selected] .urlbarView-url, .urlbarView-row[selected] .urlbarView-action {
+  background-color: var(--kde-accent) !important;
+  color: var(--kde-on-accent) !important;
+}
+.urlbarView-url { color: var(--kde-link) !important; }
+
+/* Botões da toolbar */
+/*toolbarbutton:not([disabled]):hover > .toolbarbutton-icon,*/
+/*.toolbarbutton-1:not([disabled]):hover { background-color: var(--kde-hover) !important; }*/
+/*toolbarbutton:not([disabled]):is([open], :hover:active) > .toolbarbutton-icon,*/
+/*.toolbarbutton-1:not([disabled]):is([open], :hover:active) { background-color: var(--kde-active) !important; }*/
+
+/* Menus e painéis */
+menupopup, panel, .menupopup-arrowscrollbox {
+  --panel-background: var(--kde-window-bg);
+  --panel-color: var(--kde-window-fg);
+  --panel-border-color: var(--kde-border);
+}
+menupopup > menuitem:not([disabled])[_moz-menuactive],
+menupopup > menu:not([disabled])[_moz-menuactive],
+.subviewbutton:not([disabled]):hover {
+  background-color: var(--kde-accent) !important;
+  color: var(--kde-on-accent) !important;
+}
+menuitem[disabled], menu[disabled], .subviewbutton[disabled] { color: var(--kde-window-fg-dim) !important; }
+menuseparator, toolbarseparator { border-color: var(--kde-border) !important; }
+
+/* Tooltips */
+tooltip, .places-tooltip {
+  background-color: var(--kde-tooltip-bg) !important;
+  color: var(--kde-tooltip-fg) !important;
+  border: 1px solid var(--kde-border) !important;
+}
+
+/* Barra de rolagem da UI */
+* { scrollbar-color: var(--kde-window-bg-alt) transparent; }
