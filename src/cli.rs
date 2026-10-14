@@ -1,5 +1,6 @@
-use std::path::PathBuf;
 use clap::{Parser, Subcommand};
+use std::path::PathBuf;
+
 
 #[derive(Parser, Debug)]
 #[command(name = "plasma-firefox-themer")]
@@ -10,34 +11,42 @@ pub struct Cli {
     pub command: Commands,
 }
 
+
 #[derive(Subcommand, Debug)]
 pub enum Commands {
-    /// Register a Firefox profile folder under a name
-    ///
-    /// The name is what you pass to the other commands.
+    /// Manage Firefox profiles
     Profile {
-        /// Name to identify this profile (e.g. "default")
-        name: String,
-
-        /// Path to the Firefox profile directory (e.g. /home/<user>/.config/mozilla/firefox/<randomid>.default-release/)
-        path: PathBuf,
+        #[command(subcommand)]
+        command: ProfileCommands,
     },
 
     /// Apply the current Plasma colors to a profile
-    Apply {
-        /// Name of a registered profile
-        profile: String,
-    },
+    Apply { profile: String },
 
     /// Remove the theme from a profile
-    Remove {
-        /// Name of a registered profile
-        profile: String,
+    Remove { profile: String },
+
+    /// Re-apply the theme whenever the Plasma colors change
+    Watch { profile: String },
+}
+
+#[derive(Subcommand, Debug)]
+pub enum ProfileCommands {
+    /// Register a Firefox profile
+    Add {
+        /// Name to identify this profile
+        name: String,
+
+        /// Path to the Firefox profile directory
+        path: PathBuf,
     },
 
-    /// TODO - Re-apply the theme whenever the Plasma colors change
-    Watch {
-        /// Name of a registered profile
-        profile: String,
+    /// Remove a Firefox profile
+    Remove {
+        /// Name to identify this profile
+        name: String,
     },
+
+    /// List registered Firefox profiles
+    List,
 }

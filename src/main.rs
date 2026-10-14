@@ -4,7 +4,7 @@ mod theme;
 mod utils;
 
 use clap::Parser;
-use cli::{Cli, Commands};
+use cli::{Cli, Commands, ProfileCommands};
 use config::AppConfig;
 use theme::Theme;
 
@@ -13,19 +13,46 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut config = AppConfig::load();
 
     match cli.command {
-        Commands::Profile { name, path } => {
-            if !path.exists() {
-                eprintln!("Alert: the path {:?} does not seem to exist.", path);
+        Commands::Profile { command } => match command {
+            ProfileCommands::Add { name, path } => {
+                if !path.exists() {
+                    eprintln!("Alert: the path {:?} does not seem to exist.", path);
+                }
+
+                config.profiles.insert(name.clone(), path.clone());
+
+                if let Err(e) = config.save() {
+                    eprintln!("Error while saving profile '{}': {}", name, e);
+                } else {
+                    println!(
+                        "Profile '{}' succesfully saved as \"{}\"",
+                        name,
+                        path.display()
+                    );
+                }
             }
 
-            config.profiles.insert(name.clone(), path.clone());
+            ProfileCommands::Remove { name } => {
+                if config.profiles.contains_key(&name.clone()) {
+                    config.profiles.remove(&name.clone());
 
-            if let Err(e) = config.save() {
-                eprintln!("Error while saving profile: {}", e);
-            } else {
-                println!("Profile '{}' succesfully saved as \"{}\"", name, path.display());
+                    if let Err(e) = config.save() {
+                        eprintln!("Error while removing profile '{}': {}", name.clone(), e);
+                    } else {
+                        println!("Profile '{}' succesfully removed.", name);
+                    }
+                } else {
+                        eprintln!("Profile '{}' does not exist.", name);
+                }
+
             }
-        }
+
+            ProfileCommands::List => {
+                for (name, path) in config.profiles {
+                    println!("* '{}': \"{}\"", name, path.display());
+                }
+            }
+        },
 
         Commands::Apply { profile } => match config.profiles.get(&profile) {
             Some(path) => match Theme::load()?.apply_theme(path) {
@@ -49,7 +76,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
         },
 
-        Commands::Watch { profile } => {
+        Commands::Watch { profile: _ } => {
             todo!()
         }
     }
