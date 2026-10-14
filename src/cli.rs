@@ -1,16 +1,16 @@
 use clap::{Parser, Subcommand};
 use std::path::PathBuf;
 
-
 #[derive(Parser, Debug)]
 #[command(name = "plasma-firefox-themer")]
-#[command(about = "Makes Firefox follow your Plasma color scheme adding an import to userChrome.css.")]
+#[command(
+    about = "Makes Firefox follow your Plasma color scheme by adding an import to userChrome.css."
+)]
 #[command(version)]
 pub struct Cli {
     #[command(subcommand)]
     pub command: Commands,
 }
-
 
 #[derive(Subcommand, Debug)]
 pub enum Commands {
